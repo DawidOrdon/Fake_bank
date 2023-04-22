@@ -63,9 +63,9 @@
 <body>
     <?php
         //generowanie patternów
-        $number_of_patterns=500; //ilosc patternów dla danej dłuości hasła 
-        $password_length=12; //długość hasła
-        $number_of_chars=5; //ilość znaków uwzględniona w patternie
+        $number_of_patterns=100; //ilosc patternów dla danej dłuości hasła 
+        $password_length=20; //długość hasła
+        $number_of_chars=12; //ilość znaków uwzględniona w patternie
         
         $password_array=Generate_patterns($number_of_patterns,$password_length,$number_of_chars);
         foreach($password_array as $pattern_array)
@@ -73,15 +73,14 @@
             //dodawanie nowego patternu
             $sql = $db->prepare("INSERT INTO `patterns` (`number_of_characters`) VALUES (?)");
             $sql->bind_param("i",$password_length);
-            //$sql->execute();//dodanie usera
-            //$db->query($sql);
-            //$pattern_id = $db->insert_id;
+            $sql->execute();//dodanie usera
+            $pattern_id = $db->insert_id;
             //przypisywanie numerów znaków do patternu
             foreach($pattern_array as $pattern_char)
             {
                 $sql = $db->prepare("INSERT INTO `pattern_char` (`id_pattern`, `pass_char`) VALUES (?, ?)");
                 $sql->bind_param("is",$pattern_id,$pattern_char);
-                //$sql->execute();//dodanie usera
+                $sql->execute();//dodanie usera
             }
             echo"<br />";
         }

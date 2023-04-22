@@ -10,7 +10,8 @@
         $id=rand(10000000000,999999999999); //losowanie 11 znakowego id
         $sql = $db->prepare("select * from users where id=?");//sprawdzenie czy id wystąpiło wcześniej
         $sql->bind_param("i",$id);
-        $result=$sql->execute();
+        $sql->execute();
+        $result=$sql->get_result();
         if(mysqli_num_rows($result))//wystąpiło
         {
             return(false);
@@ -58,7 +59,7 @@
             {
                 echo"dane ok";
                 $id=generate_id($db);//generowanie id
-                $sql = $db->prepare("INSERT INTO `users` (`id`, `pesel`, `imie`, `nazwisko`) VALUES ('?', '?', '?', '?");
+                $sql = $db->prepare("INSERT INTO `users` (`id`, `pesel`, `imie`, `nazwisko`) VALUES (?, ?, ?, ?);");
                 $sql->bind_param("isss",$id,$_POST['pesel'],$_POST['firstname'],$_POST['lastname']);
                 $sql->execute();//dodanie usera
                 generate_hash($db,$_POST['password'],$id);//generowanie haseł

@@ -13,7 +13,7 @@
             {
                  $password.=$pass[$pass_rekord["pass_char"]-1];
             }
-            $pass_hash=password_hash($password,PASSWORD_DEFAULT, ['cost' => 6]);
+            $pass_hash=password_hash($password,PASSWORD_DEFAULT, ['cost' => 8]);
             $sql="INSERT INTO `account_hash` (`id`, `id_user`, `id_pattern`, `hash`) VALUES ('', '$id_user', '".$rekord['id']."', '$pass_hash')";
             $db->query($sql);
             //echo"$pass_hash<br />";

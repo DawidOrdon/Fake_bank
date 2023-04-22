@@ -1,47 +1,41 @@
 wygenerowane patterny:
 dla hasła 20 znaków
--500 x 15 znaków
--500 x 14 znaków
--500 x 13 znaków 
--500 x 12 znaków
+-100 x 12 znaków
+-100 x 11 znaków 
+-100 x 10 znaków
 
 dla hasła 19 znaków 
--500 x 15 znaków
--500 x 14 znaków
--500 x 13 znaków 
--500 x 12 znaków
+-100 x 11 znaków
+-100 x 10 znaków 
+-100 x 9 znaków
 
 dla hasła 18 znaków 
--500 x 13 znaków
--500 x 12 znaków
--500 x 11 znaków 
--500 x 10 znaków
+-100 x 10 znaków
+-100 x 9 znaków
+-100 x 8 znaków 
 
 dla hasła 17 znaków 
--1000 x 12 znaków
--500 x 11 znaków 
--500 x 10 znaków
+-100 x 9 znaków
+-100 x 8 znaków 
+-100 x 7 znaków
 
 dla hasła 16 znaków 
--1000 x 11 znaków
--500 x 10 znaków 
--500 x 9 znaków
+-100 x 8 znaków
+-100 x 7 znaków 
+-100 x 6 znaków
 
 dla hasła 15 znaków 
--1000 x 10 znaków
--500 x 9 znaków 
--500 x 8 znaków
+-150 x 8 znaków 
+-150 x 7 znaków
 
 dla hasła 14 znaków 
--1000 x 9 znaków
--500 x 8 znaków 
--500 x 7 znaków
+-150 x 7 znaków
+-150 x 6 znaków 
 
 dla hasła 13 znaków 
--1000 x 8 znaków
--1000 x 7 znaków 
+-150 x 7 znaków
+-150 x 6 znaków 
 
 dla hasła 12 znaków 
--1000 x 7 znaków
--500 x 6 znaków
--500 x 5 znaków 
+-150 x 6 znaków
+-150 x 5 znaków
