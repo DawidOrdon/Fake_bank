@@ -13,8 +13,9 @@
     }*/
     include_once("./scripts/get_random_pattern_id.php");
     include_once("./scripts/connect.php");
-    $db=connect();
-    get_random_pattern_id($db,472142250751);
+    //$db=connect();
+    //get_random_pattern_id($db,472142250751);
     session_start();
-    session_destroy();
+    //session_destroy();
+    echo $_SESSION['user_id'];
 ?>

@@ -2,9 +2,9 @@
     session_start();
     include_once("./scripts/connect.php");
     include_once("./scripts/function.php");
-    head();
+    start_html();
 ?>
-<body>
+<body class="bg-dark">
     <a href="./pattern_generator.php">Pattern generator</a><br />
     <a href="./password_pattern.php">Zmiana hasła na patterny</a><br />
     <a href="./register.php">Rejestracja</a><br />

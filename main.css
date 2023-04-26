@@ -1,0 +1,28 @@
+body
+{
+    background-image: url("./img/bg.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+}
+.formitem
+{
+    width: 30px;
+    text-align: center;
+}
+.item
+{
+    width: 30px;
+    text-align: center;
+}
+.formdiv
+{
+    float: left;
+    margin:auto;
+}
+.indis
+{
+    width: 30px;
+    height: 30px;
+    background-color: gray;
+}
