@@ -4,16 +4,16 @@
     include_once("./scripts/get_random_pattern_id.php");
     include_once("./scripts/function.php");
     $db=connect();
-    if(isset($_SESSION['id_account_hash'])&&!isset($_SESSION['account_hash']))//pobranie hasha hasła jeżeli go nie ma
+    //echo $_SESSION['id_users_hash'];
+    if(isset($_SESSION['id_users_hash'])&&!isset($_SESSION['users_hash']))//pobranie hasha hasła jeżeli go nie ma
     {
         echo "test 1";
         $sql = $db->prepare("SELECT * FROM `users_hash` WHERE id=?");
-        $sql->bind_param("i",$_SESSION['id_account_hash']);
+        $sql->bind_param("i",$_SESSION['id_users_hash']);
         $sql->execute();
         $result=$sql->get_result();
         $result=$result->fetch_assoc();
-        
-        $_SESSION['account_hash']=$result['hash'];
+        $_SESSION['users_hash']=$result['hash'];
     }
     if(isset($_POST['password'])&&!empty($_POST['password']))//sprawdzenie hasła
     {
@@ -22,10 +22,10 @@
         {
             $password.=$pass_char;
         }
-        if(password_verify($password,$_SESSION['account_hash']))//weryfikacja hasła 
+        if(password_verify($password,$_SESSION['users_hash']))//weryfikacja hasła 
         {
             get_random_pattern_id($db,$_SESSION['login']);//losowanie następnego patternu do kolejnego logowania
-            unset($_SESSION['account_hash'],$_SESSION['id_account_hash'],$_SESSION['id_hash_id']);
+            unset($_SESSION['users_hash'],$_SESSION['id_users_hash'],$_SESSION['id_hash_id']);
             $sql = $db->prepare("UPDATE `login` SET `succes` = '1' WHERE `login`.`id` = ?");//aktualizacja danych logowania aby potwordzic poprawność logowania 
             $sql->bind_param("i",$_SESSION['login_id']);
             $sql->execute();
@@ -81,7 +81,7 @@
                 $_SESSION['login_id']=$result['login_id'];
                 if(!isset($_SESSION['account_hash_id']))//zapisanie id hasha patternu
                 {
-                    $_SESSION['id_account_hash']=$result['id_account_hash'];
+                    $_SESSION['id_users_hash']=$result['id_users_hash'];
                 }
                 $sql=$db->prepare("SELECT * FROM `pattern_char` WHERE id_pattern=?");//pobranie numerow znakow hasla
                 $sql->bind_param('i',$result['id_pattern']);
