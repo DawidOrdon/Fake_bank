@@ -59,15 +59,16 @@
             {
                 echo"dane ok";
                 $id=generate_id($db);//generowanie id
-                $sql = $db->prepare("INSERT INTO `users` (`id`, `pesel`, `imie`, `nazwisko`) VALUES (?, ?, ?, ?);");
+                $sql = $db->prepare("INSERT INTO `users` (`id`, `pesel`, `firstname`, `lastname`) VALUES (?, ?, ?, ?);");
                 $sql->bind_param("isss",$id,$_POST['pesel'],$_POST['firstname'],$_POST['lastname']);
                 $sql->execute();//dodanie usera
                 generate_hash($db,$_POST['password'],$id);//generowanie haseł
                 get_random_pattern_id($db,$id);
 
                 //dane do informacji zwrotnej
-                $_SESSION['firstname']=$_POST['firstname'];
-                $_SESSION['id']=$id;
+                $_SESSION['error'] = $_POST['firstname']."! dziękujemu za rejestracje<br /> Twój numer klienta to:".$id." zapisz go w bezpiecznym miejscu<br />";
+                header('Location:./login.php');
+                exit();
             }
             
             
@@ -128,7 +129,6 @@
             {
                 echo $_SESSION['firstname']."! dziękujemu za rejestracje<br />";
                 echo "Twój numer klienta to:".$_SESSION['id']." zapisz go w bezpiecznym miejscu<br />";
-               
                 unset($_SESSION['id'],$_SESSION['firstname']);
             }
             ?>

@@ -29,7 +29,15 @@
             $sql->bind_param("i",$_SESSION['login_id']);
             $sql->execute();
             $_SESSION['user_id']=$_SESSION['login'];
-            echo"dziala";
+            unset($_SESSION['login']);
+            $sql= $db->prepare("SELECT firstname from users where id = ?");
+            $sql->bind_param('i',$_SESSION['user_id']);
+            $sql->execute();
+            $result=$sql->get_result();
+            $result=$result->fetch_assoc();
+            $_SESSION['firstname']=$result['firstname'];
+            header('Location:main.php');
+            exit();
             //session_destroy();
         }
         else //błędne logowanie 
@@ -41,7 +49,7 @@
             //$db->query($sql);
             $sql = $db->prepare("INSERT INTO `login` (`id`, `id_user`, `id_account_hash`, `wrong_password`, `date`, `succes`) VALUES (NULL, ?, ?, ?, 'NOW()', 'false')");//aktualizacja danych logowania aby potwordzic poprawność logowania 
             $sql->bind_param('iii',$_SESSION['login'],$_SESSION['id_account_hash'],$wrong_password);
-            //$sql->execute();
+            $sql->execute();
         }
         
         echo "<br />";
