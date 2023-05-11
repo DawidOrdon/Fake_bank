@@ -6,12 +6,13 @@
     $db=connect();
     if(isset($_SESSION['id_account_hash'])&&!isset($_SESSION['account_hash']))//pobranie hasha hasła jeżeli go nie ma
     {
-        
-        $sql = $db->prepare("SELECT * FROM `account_hash` WHERE id=?");
+        echo "test 1";
+        $sql = $db->prepare("SELECT * FROM `users_hash` WHERE id=?");
         $sql->bind_param("i",$_SESSION['id_account_hash']);
         $sql->execute();
         $result=$sql->get_result();
         $result=$result->fetch_assoc();
+        
         $_SESSION['account_hash']=$result['hash'];
     }
     if(isset($_POST['password'])&&!empty($_POST['password']))//sprawdzenie hasła
@@ -45,10 +46,8 @@
             $trials=2-$_SESSION['wrong_password'];
             $_SESSION['error']="błędne hasło pozsotały ".$trials." proby";
             $wrong_password=$_SESSION['wrong_password']+1;// zwiększenie numeru próby logowania 
-            //$sql="INSERT INTO `login` (`id`, `id_user`, `id_account_hash`, `wrong_password`, `date`, `succes`) VALUES (NULL, '".$_SESSION['login']."', '".$_SESSION['id_account_hash']."', '$wrong_password', '".date('Y-m-d')."', 'false')";
-            //$db->query($sql);
-            $sql = $db->prepare("INSERT INTO `login` (`id`, `id_user`, `id_account_hash`, `wrong_password`, `date`, `succes`) VALUES (NULL, ?, ?, ?, 'NOW()', 'false')");//aktualizacja danych logowania aby potwordzic poprawność logowania 
-            $sql->bind_param('iii',$_SESSION['login'],$_SESSION['id_account_hash'],$wrong_password);
+            $sql = $db->prepare("INSERT INTO `login` (`id`, `id_user`, `id_users_hash`, `wrong_password`, `date`, `succes`) VALUES (NULL, ?, ?, ?, 'NOW()', 'false')");//aktualizacja danych logowania aby potwordzic poprawność logowania 
+            $sql->bind_param('iii',$_SESSION['login'],$_SESSION['id_users_hash'],$wrong_password);
             $sql->execute();
         }
         
@@ -64,7 +63,7 @@
     if(isset($_SESSION['login']))
     {
         // pobranie ostatniej informacji o logowaniu
-        $sql=$db->prepare("SELECT account_hash.id_pattern as 'id_pattern', login.id_account_hash as 'id_account_hash', login.wrong_password as 'wrong_password', login.id as 'login_id' FROM login join account_hash on login.id_account_hash=account_hash.id  WHERE login.id_user=? order by login.id desc limit 1");
+        $sql=$db->prepare("SELECT users_hash.id_pattern as 'id_pattern', login.id_users_hash as 'id_users_hash', login.wrong_password as 'wrong_password', login.id as 'login_id' FROM login join users_hash on login.id_users_hash=users_hash.id  WHERE login.id_user=? order by login.id desc limit 1");
         $sql->bind_param('i',$_SESSION['login']);
         $sql->execute();
         $result=$sql->get_result();
