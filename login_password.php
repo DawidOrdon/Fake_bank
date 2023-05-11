@@ -152,6 +152,7 @@
             elt.nextElementSibling.focus();
             }
         });
+        console.log(elts);
         })
     </script>
     <?php

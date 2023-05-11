@@ -88,38 +88,57 @@
         }
     }
     end:
-    
+    start_html();
 ?>
-<!DOCTYPE html>
-<html lang="pl">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Rejestracja Fake bank</h1>
-    <form method="POST">
-        <?php
-            $rand=rand();
-            $_SESSION['rand']=$rand;
-        ?>
-        <input type="hidden" name="token" value="<?php echo $rand;?>">
-        <input type="text" name="firstname" placeholder="firstname" value="<?php if(isset($_POST['firstname'])){echo $_POST['firstname'];} ?>"><br />
-        <input type="text" name="lastname" placeholder="lastname" value="<?php if(isset($_POST['lastname'])){echo $_POST['lastname'];} ?>"><br />
-        <input type="text" name="pesel" placeholder="pesel" value="<?php if(isset($_POST['pesel'])){echo $_POST['pesel'];} ?>"><br />
-        <input type="password" name="password" placeholder="password"><br />
-        <input type="submit" name="submitbtn">
-    </form>
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row" >
+            <div class="col-sm-6 col-lg-3 text-light pt-5 pr-5 pb-5 mt-5 text-center">
+            <h2>Witaj w Fake bank</h2>
+            Rejestracja
+            </div>
+            
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-lg-3  bg-dark text-light p-5 rounded-3">
+            <form method="POST">
+                <?php
+                    $rand=rand();
+                    $_SESSION['rand']=$rand;
+                ?>
+                <input type="hidden" name="token" value="<?php echo $rand;?>">
+                Imie
+                <input type="text" class="form-control bg-dark text-light" name="firstname" placeholder="firstname" value="<?php if(isset($_POST['firstname'])){echo $_POST['firstname'];} ?>"><br />
+                Nazwisko
+                <input type="text" class="form-control bg-dark text-light" name="lastname" placeholder="lastname" value="<?php if(isset($_POST['lastname'])){echo $_POST['lastname'];} ?>"><br />
+                Pesel
+                <input type="text" class="form-control bg-dark text-light" name="pesel" placeholder="pesel" value="<?php if(isset($_POST['pesel'])){echo $_POST['pesel'];} ?>"><br />
+                Hasło
+                <input type="password" class="form-control bg-dark text-light" name="password" placeholder="password"><br />
+                <input type="submit" name="submitbtn" class="btn bg-secondary text-light w-100">
+            </form>
+            <?php
+            show_error();
+            if(isset($_SESSION['firstname'])&&isset($_SESSION['id']))
+            {
+                echo $_SESSION['firstname']."! dziękujemu za rejestracje<br />";
+                echo "Twój numer klienta to:".$_SESSION['id']." zapisz go w bezpiecznym miejscu<br />";
+               
+                unset($_SESSION['id'],$_SESSION['firstname']);
+            }
+            ?>
+                
+            </div>
+
+        </div>
+        <div class="row">
+    </div>
+    
     <?php
-        show_error();
-        if(isset($_SESSION['firstname'])&&isset($_SESSION['id']))
-        {
-            echo $_SESSION['firstname']."! dziękujemu za rejestracje<br />";
-            echo "Twój numer klienta to:".$_SESSION['id']." zapisz go w bezpiecznym miejscu<br />";
-            unset($_SESSION['id'],$_SESSION['firstname']);
-        }
+        end_html();
     ?>
-</body>
-</html>

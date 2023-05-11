@@ -23,7 +23,7 @@
             <div class="col-sm-6 col-lg-3  bg-dark text-light p-5 rounded-3">
                 Login:
                 <form method="POST" action="login_password.php">
-                    <input type="text" name="login" class="form-control mt-2 bg-secondary text-light">
+                    <input type="text" name="login" class="form-control mt-2 bg-dark text-light">
                     <input type="submit" class="btn text-center w-100 mt-4 bg-secondary text-light" vlaue="Dalej">
                 </form>
                 <?php
