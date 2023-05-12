@@ -1,5 +1,5 @@
 <?php
-    function navbar()
+    function start_navbar()
     {
     ?>
         <div class="container-fluid">
@@ -59,8 +59,15 @@
                         </div>
                     </div>
                 </div>
+                <div class="col py-3">
+    <?php
+    }
+    function end_navbar()
+    {
+        ?>
+            </div>
             </div>
         </div>
-    <?php
+        <?php
     }
 ?>

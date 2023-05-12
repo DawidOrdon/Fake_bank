@@ -1,7 +1,7 @@
 <?php
-    function generate_iban($fake_bank_iban_number=12344356,$country_code='PL')
+    function generate_iban($db,$fake_bank_iban_number=12344356,$country_code='PL')
     {
-        require('./iban_letter.php');
+        require('./scripts/iban_letter.php');
         $iban_account_number=rand(1000000000000000,9999999999999999);//wygenerowanie losowej 16 cyfrowej liczby
         $account_number= $country_code.'00'.$fake_bank_iban_number.$iban_account_number;//stowrzenie podstawowego ciągu do obliczenia sumy kontrolnej
         $account_number=strtolower($account_number);//zmiana liter na male
@@ -38,14 +38,21 @@
             $suma='0'.$suma;
         }
         $iban= "PL".$suma.$fake_bank_iban_number.$iban_account_number;
-        echo $iban."<br />";
-        return($iban);
+        if(find_iban($iban,$db))
+        {
+            $iban=generate_iban($db);
+        }
+        else
+        {
+            return($iban);
+        }
+        
     }
     
 
     function check_iban($iban)
     {
-        require('./iban_letter.php');
+        require('./scripts/iban_letter.php');
         $iban=strtolower($iban);//zmiana liter na male
         $iban=str_split($iban);//zmiana stringa na tablice
         $account_iban='';
@@ -84,6 +91,4 @@
             echo"cos poszlo nie tak";
         }
     }
-    $iban=generate_iban();
-    check_iban($iban);
 ?>

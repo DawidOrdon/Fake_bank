@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 11 Maj 2023, 10:44
+-- Czas generowania: 12 Maj 2023, 11:25
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -22,6 +22,27 @@ SET time_zone = "+00:00";
 --
 CREATE DATABASE IF NOT EXISTS `wsb_fake_bank` DEFAULT CHARACTER SET utf8 COLLATE utf8_polish_ci;
 USE `wsb_fake_bank`;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `account`
+--
+
+CREATE TABLE `account` (
+  `iban` varchar(28) NOT NULL,
+  `name` text NOT NULL,
+  `user_id` bigint(11) UNSIGNED NOT NULL,
+  `balance` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `account`
+--
+
+INSERT INTO `account` (`iban`, `name`, `user_id`, `balance`) VALUES
+('PL06123443562760302859997263', '4konto przez 10', 504009417637, 200),
+('PL73123443561121312458774893', 'Dawid', 504009417637, 200);
 
 -- --------------------------------------------------------
 
@@ -53,8 +74,9 @@ INSERT INTO `login` (`id`, `id_user`, `id_users_hash`, `wrong_password`, `date`,
 (17, 387881404559, 2999, 0, '2023-05-11', 1),
 (18, 387881404559, 2787, 0, '2023-05-11', 1),
 (19, 504009417637, 3221, 0, '2023-05-11', 1),
-(20, 504009417637, 3239, 0, '2023-05-11', 0),
-(21, 387881404559, 2940, 0, '2023-05-11', 0);
+(20, 504009417637, 3239, 0, '2023-05-11', 1),
+(21, 387881404559, 2940, 0, '2023-05-11', 0),
+(22, 504009417637, 3287, 0, '2023-05-12', 0);
 
 -- --------------------------------------------------------
 
@@ -24736,6 +24758,15 @@ INSERT INTO `users_hash` (`id`, `id_user`, `id_pattern`, `hash`) VALUES
 --
 
 --
+-- Indeksy dla tabeli `account`
+--
+ALTER TABLE `account`
+  ADD PRIMARY KEY (`iban`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `user_id_2` (`user_id`),
+  ADD KEY `user_id_3` (`user_id`);
+
+--
 -- Indeksy dla tabeli `login`
 --
 ALTER TABLE `login`
@@ -24778,7 +24809,7 @@ ALTER TABLE `users_hash`
 -- AUTO_INCREMENT dla tabeli `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT dla tabeli `patterns`
@@ -24801,6 +24832,12 @@ ALTER TABLE `users_hash`
 --
 -- Ograniczenia dla zrzutów tabel
 --
+
+--
+-- Ograniczenia dla tabeli `account`
+--
+ALTER TABLE `account`
+  ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Ograniczenia dla tabeli `login`
