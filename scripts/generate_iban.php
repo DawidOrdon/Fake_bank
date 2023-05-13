@@ -84,11 +84,11 @@
         $iban_modulo=$account_iban2%97;
         if($iban_modulo==1)//weryfikacja iban
         {
-            echo"iban jest poprawny";
+            return(true);
         }
         else
         {
-            echo"cos poszlo nie tak";
+            return(false);
         }
     }
 ?>

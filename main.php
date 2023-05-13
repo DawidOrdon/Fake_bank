@@ -11,6 +11,7 @@
     <div class="container-fluid p-5 text-white">
         <div class="row">
             <div class="col-sm-4">
+                <?php show_error()?>
                 <h1>Twoje konta:</h1>
                 <div class="row">
                     
