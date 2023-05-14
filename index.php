@@ -10,5 +10,6 @@
     <a href="./register.php">Rejestracja</a><br />
     <a href="./Login.php">Login</a><br />
 <?php
+header("Location:login.php");
     end_html();
 ?>
