@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 13 Maj 2023, 17:41
+-- Czas generowania: 14 Maj 2023, 12:03
 -- Wersja serwera: 10.4.27-MariaDB
 -- Wersja PHP: 8.2.0
 
@@ -42,8 +42,55 @@ CREATE TABLE `account` (
 
 INSERT INTO `account` (`iban`, `name`, `user_id`, `balance`) VALUES
 ('PL06123443562760302859997263', '4konto przez 10', 504009417637, 262),
-('PL17123443567279632862051035', 'pierwsze', 689569288542, 180),
+('PL17123443567279632862051035', 'pierwsze', 689569288542, 0),
+('PL24123443563455903823208728', 'testowe', 689569288542, 313),
+('PL55123443567865519530523513', 'lokata', 689569288542, 200),
 ('PL73123443561121312458774893', 'Dawid', 504009417637, 200);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `credit`
+--
+
+CREATE TABLE `credit` (
+  `iban` varchar(28) NOT NULL,
+  `user_id` bigint(11) UNSIGNED NOT NULL,
+  `name` text NOT NULL,
+  `value` float NOT NULL,
+  `interest` double NOT NULL,
+  `percent` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `credit`
+--
+
+INSERT INTO `credit` (`iban`, `user_id`, `name`, `value`, `interest`, `percent`) VALUES
+('PL47123443562205675520474733', 689569288542, 'hipoteczny', 98511, 7.79572602739726, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `investment`
+--
+
+CREATE TABLE `investment` (
+  `iban` varchar(28) NOT NULL,
+  `user_id` bigint(11) UNSIGNED NOT NULL,
+  `name` text NOT NULL,
+  `value` float NOT NULL,
+  `interest` double NOT NULL,
+  `percent` float NOT NULL,
+  `flex` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `investment`
+--
+
+INSERT INTO `investment` (`iban`, `user_id`, `name`, `value`, `interest`, `percent`, `flex`) VALUES
+('PL96123443568531980007601218', 689569288542, 'testowe2', 101, 0.002767123287671233, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -81,7 +128,8 @@ INSERT INTO `login` (`id`, `id_user`, `id_users_hash`, `wrong_password`, `date`,
 (23, 504009417637, 3263, 0, '2023-05-12', 0),
 (24, 689569288542, 3535, 0, '2023-05-13', 1),
 (25, 689569288542, 3403, 0, '2023-05-13', 1),
-(26, 689569288542, 3579, 0, '2023-05-13', 0);
+(26, 689569288542, 3579, 0, '2023-05-13', 1),
+(27, 689569288542, 3415, 0, '2023-05-13', 0);
 
 -- --------------------------------------------------------
 
@@ -24121,6 +24169,27 @@ INSERT INTO `pattern_char` (`id`, `id_pattern`, `pass_char`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `percents`
+--
+
+CREATE TABLE `percents` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `value` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `percents`
+--
+
+INSERT INTO `percents` (`id`, `name`, `value`) VALUES
+(1, 'investment', 1),
+(2, 'credit', 2),
+(3, 'flex', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `transfers`
 --
 
@@ -24141,7 +24210,13 @@ CREATE TABLE `transfers` (
 INSERT INTO `transfers` (`id`, `title`, `id_user_source`, `id_user_destiny`, `value`, `date`, `accept`) VALUES
 (2, '2', 'PL17123443567279632862051035', 'PL06123443562760302859997263', 50, '2023-05-13 09:25:44', 1),
 (4, 'test', 'PL17123443567279632862051035', 'PL06123443562760302859997263', 1, '2023-05-13 09:28:22', 1),
-(5, '1', 'PL17123443567279632862051035', 'PL06123443562760302859997263', 20, '2023-05-13 10:45:07', 1);
+(5, '1', 'PL17123443567279632862051035', 'PL06123443562760302859997263', 20, '2023-05-13 10:45:07', 1),
+(6, 'przelew', 'PL17123443567279632862051035', 'PL24123443563455903823208728', 180, '2023-05-13 17:52:12', 1),
+(7, 'splata raty', 'PL24123443563455903823208728', 'PL47123443562205675520474733', 100, '2023-05-13 20:02:50', 1),
+(8, 'tyt', 'PL24123443563455903823208728', 'PL47123443562205675520474733', 200, '2023-05-13 20:17:44', 1),
+(9, 'tyt', 'PL24123443563455903823208728', 'PL47123443562205675520474733', 3, '2023-05-13 20:21:40', 1),
+(10, 'oszczednosci', 'PL24123443563455903823208728', 'PL96123443568531980007601218', 100, '2023-05-13 20:22:21', 1),
+(11, 'splata', 'PL24123443563455903823208728', 'PL21123443563942330146326759', 24, '2023-05-13 20:29:26', 1);
 
 -- --------------------------------------------------------
 
@@ -25098,6 +25173,20 @@ ALTER TABLE `account`
   ADD KEY `user_id_3` (`user_id`);
 
 --
+-- Indeksy dla tabeli `credit`
+--
+ALTER TABLE `credit`
+  ADD PRIMARY KEY (`iban`),
+  ADD KEY `user_id` (`user_id`);
+
+--
+-- Indeksy dla tabeli `investment`
+--
+ALTER TABLE `investment`
+  ADD PRIMARY KEY (`iban`),
+  ADD KEY `user_id` (`user_id`);
+
+--
 -- Indeksy dla tabeli `login`
 --
 ALTER TABLE `login`
@@ -25117,6 +25206,12 @@ ALTER TABLE `patterns`
 ALTER TABLE `pattern_char`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_pattern` (`id_pattern`);
+
+--
+-- Indeksy dla tabeli `percents`
+--
+ALTER TABLE `percents`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeksy dla tabeli `transfers`
@@ -25146,7 +25241,7 @@ ALTER TABLE `users_hash`
 -- AUTO_INCREMENT dla tabeli `login`
 --
 ALTER TABLE `login`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT dla tabeli `patterns`
@@ -25161,10 +25256,16 @@ ALTER TABLE `pattern_char`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23551;
 
 --
+-- AUTO_INCREMENT dla tabeli `percents`
+--
+ALTER TABLE `percents`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT dla tabeli `transfers`
 --
 ALTER TABLE `transfers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT dla tabeli `users_hash`
@@ -25183,10 +25284,23 @@ ALTER TABLE `account`
   ADD CONSTRAINT `account_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Ograniczenia dla tabeli `credit`
+--
+ALTER TABLE `credit`
+  ADD CONSTRAINT `credit_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Ograniczenia dla tabeli `investment`
+--
+ALTER TABLE `investment`
+  ADD CONSTRAINT `investment_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
 -- Ograniczenia dla tabeli `login`
 --
 ALTER TABLE `login`
-  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `login_ibfk_2` FOREIGN KEY (`id_users_hash`) REFERENCES `users_hash` (`id`);
 
 --
 -- Ograniczenia dla tabeli `pattern_char`
