@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'fakebankdawidordon'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B1BDCA541A7B4876A736C8661A2430CA }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D1652C7532D04B44954BB777CD604F42 }}
           package: .
