@@ -18,7 +18,7 @@
     }
     if(!isset($error))
     {
-        if(isset($_SESSION['token'])&&isset($_SESSION['token']))
+        if(isset($_SESSION['token'])&&isset($_POST['token']))
         {
             if($_POST['token']==$_SESSION['token'])
             {

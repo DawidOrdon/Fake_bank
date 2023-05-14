@@ -9,7 +9,11 @@
     $db=connect();
     if(!empty($_POST['name']))
     {
-        new_account($db,generate_iban($db),200,$_POST['name']); //wywołanie funkcji która stworzy nowe konto
+        $sql=$db->prepare("SELECT value FROM `percents` WHERE id=1");//pobranie aktualnego oprocentowania
+        $sql->execute();
+        $result=$sql->get_result();
+        $row=$result->fetch_assoc();
+        new_investment($db,generate_iban($db),$row['value'],$_POST['name']); //wywołanie funkcji która stworzy nowe konto
     }
         
     header("Location:main.php");
