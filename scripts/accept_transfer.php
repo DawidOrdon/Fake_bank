@@ -42,6 +42,9 @@
                 $sql=$db->prepare("UPDATE `credit` SET `value` = ?, `interest` = ? WHERE `credit`.`iban` = ?");
                 $sql->bind_param('dds',$balance,$interest,$row['id_user_destiny']);
                 $sql->execute();
+                $sql=$db->prepare("UPDATE `account` SET `balance` = balance + ? WHERE `account`.`iban` = 'PL31123443561540121341009886'");
+                $sql->bind_param('d',$row['value']);
+                $sql->execute();
             }
             
 

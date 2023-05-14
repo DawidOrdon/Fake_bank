@@ -105,7 +105,7 @@
                                             Kwota
                                         </div>
                                         <div class="col-sm-12">
-                                            <input type="number" min='1' name='amount' class="form-control">
+                                            <input type="number" min='0.01' step="0.01" name='amount' class="form-control">
                                         </div>
                                     </div>
                                 </div>

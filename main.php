@@ -59,16 +59,18 @@
                                 echo "<div class='col-sm-12'>";
                                 echo "Nazwa :".$row['name']."<br />";
                                 echo "Numer Konta :".$row['iban'].", oprocentowanie :".$row['percent']."<br />";
-                                echo "stan konta:".$row['value'];
-                                echo "odsetki:".$row['interest'];
+                                echo "stan konta:".round($row['value'],2);
+                                echo "odsetki:".round($row['interest'],2);
                                 echo "</div>";
+                                echo "<div class='col-sm-6'><a href='./payout_all.php?iban=".$row['iban']."'><button class='btn bg-white w-100'>Wypłać wszystkie środki</button></a></div>";
+                                echo "<div class='col-sm-6'><a href='./payout_interest.php?iban=".$row['iban']."'><button class='btn bg-white w-100'>Wypłać odsetki</button></a></div>";
                             }
                         ?>
                     
                 </div>
                 <div class="row">
                     <form method="POST" action="new_investment.php">
-                        <div class="col-sm-6" style="float:left">
+                        <div class="col-sm-6 " style="float:left">
                             <input type="text" name='name' class="form-control" placeholder="nazwa konta">
                         </div>
                         <div class="col-sm-3" style="float:left">
@@ -127,10 +129,10 @@
                             
                         </div>
                         <div class="col-sm-3" style="float:left">
-                            <input type="number" class="form-control" value="kwota kredytu" name="value">
+                            <input type="number" class="form-control" placeholder="kwota kredytu" name="value">
                         </div>
                         <div class="col-sm-3" style="float:left">
-                            <input type="submit" value="Nowe konto" class="form-control">
+                            <input type="submit" value="Nowy kredyt" class="form-control">
                         </div>
                     </form>
                 </div>
