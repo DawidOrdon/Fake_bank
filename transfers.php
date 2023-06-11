@@ -125,7 +125,7 @@
                         
 
                         <div class="col-sm-12 m-t-3" style="float:left">
-                            <input type="submit" value="Nowe konto" class="form-control w-100">
+                            <input type="submit" value="Nowy przelew" class="form-control w-100">
                         </div>
                     </form>
                     <div class="col-sm-12">
