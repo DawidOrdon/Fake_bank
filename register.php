@@ -7,7 +7,7 @@
     $db=connect();
     function generate_id($db)
     {
-        $id=rand(10000000000,999999999999); //losowanie 11 znakowego id
+        $id=rand(100000000000,999999999999); //losowanie 12 znakowego id
         $sql = $db->prepare("select * from users where id=?");//sprawdzenie czy id wystąpiło wcześniej
         $sql->bind_param("i",$id);
         $sql->execute();
